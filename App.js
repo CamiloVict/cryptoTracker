@@ -1,13 +1,17 @@
+
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import CoinsStack from './src/components/coins/CoinsStack'
+
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Se vienen cosas grandes!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+        <CoinsStack/>
+    </NavigationContainer>
   );
 }
 
