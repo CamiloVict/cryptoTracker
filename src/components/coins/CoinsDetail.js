@@ -7,7 +7,7 @@ var ICON_ROUTE_PATH = 'https://c1.coinlore.com/img/25x25/'
 
 const CoinsDetail = ({route,navigation}) => {
     
-    const { coin: { symbol, name, market_cap_usd, volume24, percent_change_24 } } = route.params
+    const { coin: { symbol, name, market_cap_usd, volume24, percent_change_24h } } = route.params
     
     useEffect(() => {
         navigation.setOptions({title : symbol})
@@ -21,7 +21,7 @@ const CoinsDetail = ({route,navigation}) => {
         }
     }
 
-    const getSection = (...coin) => {
+    const getSection = () => {
         const sections = [
             {
                 title : 'Market Cap',
@@ -33,7 +33,7 @@ const CoinsDetail = ({route,navigation}) => {
             },
             {
                 title: 'Change24h',
-                data : [percent_change_24]
+                data : [percent_change_24h]
             }
         ]
         return sections
@@ -47,7 +47,18 @@ const CoinsDetail = ({route,navigation}) => {
                 <Image style = {styles.img} source = {{uri : getSymbolIcon()}}/>
                 <Text style = { styles.titleText}>{name}</Text>
             </View>
-            <SectionList  sections = {getSection({coin})}/>
+                <SectionList 
+                    sections = { getSection() }
+                    keyExtractor = { (item) => item.id}
+                    renderItem = {({item}) => 
+                    <View style = { styles.sectionItem}>
+                        <Text style = {styles.itemText} >{item}</Text>
+                    </View>}
+                    renderSectionHeader = {({section}) => 
+                        <View style = {styles.sectionHeader}>
+                            <Text style = {styles.sectionText}>{section.title}</Text> 
+                        </View>}
+                />
         </View>
     )
 }
@@ -64,6 +75,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         
     },
+    sectionHeader: {
+        backgroundColor: 'rgba(0,0,0,0.2)',
+        padding: 8
+    },
+    sectionItem:{
+        padding:8
+    },
     img: {
         width: 26,
         height: 26,
@@ -76,6 +94,15 @@ const styles = StyleSheet.create({
         marginRight: 10,
         marginTop: 2
     },
+    itemText:{
+        color: '#fff',
+        fontSize: 14,
+    },
+    sectionText: {
+        color: '#fff',
+        fontSize:14,
+        fontWeight: 'bold',
+    }
 })
 
 export default CoinsDetail

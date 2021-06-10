@@ -24,7 +24,6 @@ const CoinsScreen = (props) => {
     },[])
         
     handlePress = (coin) => {
-        console.log(coin)
         props.navigation.navigate('CoinsDetail', {coin});
     }
 
