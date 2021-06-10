@@ -1,9 +1,14 @@
 import React from 'react'
 import {View, Text} from 'react-native'
 
-const CoinsDetail = () => {
+const CoinsDetail = (props) => {
+    
+    console.log('coin', props.route.params)
+    
     return (
-        <View><Text>Coins Detail</Text></View>
+        <View>
+            <Text>Ejta funcionando</Text>
+        </View>
     )
 }
 
