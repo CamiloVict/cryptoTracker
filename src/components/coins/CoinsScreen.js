@@ -1,11 +1,32 @@
-import React from 'react'
-import {View, Text} from 'react-native'
+import React, {useState,useEffect} from 'react'
+import {View, Text, Pressable} from 'react-native'
+import Http from '../libs/http';
 
 
-const CoinsScreen = () => {
+const CoinsScreen = (props) => {
+
+    const API = "https://api.coinlore.net/api/tickers/"
+
+    const [data, setData] = useState({});
+    
+    const getData = async () => {
+        let response = await Http.instance.get(API)
+        setData(response);
+    }
+    
+    useEffect(() => {
+        getData()
+    },[])
+        
+    handlePress = () => {
+        props.navigation.navigate('CoinsDetail');
+        console.log(props)
+    }
+
     return (
         <View>
-            <Text>A la verga wei!!</Text>
+            <Text>Funciona</Text>
+            <Pressable onPress = {handlePress}><Text>Go to details</Text></Pressable>
         </View>
     )
 }
