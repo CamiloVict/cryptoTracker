@@ -34,6 +34,7 @@ const CoinsScreen = (props) => {
             {loading && <ActivityIndicator color = '#000'  size = 'large' style = {styles.loader} />}
             <FlatList 
                 data = {coins} 
+                keyExtractor={(item) => item.id}
                 renderItem = {( { item } ) => <CoinsItem item = {item} onPress = {() => {handlePress(item)}}/>} 
             />
         </View>
@@ -51,8 +52,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    list:{
-    }
+    
 })
 
 
