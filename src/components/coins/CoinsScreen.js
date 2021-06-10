@@ -24,15 +24,14 @@ const CoinsScreen = (props) => {
     },[])
         
     handlePress = (coin) => {
+        console.log(coin)
         props.navigation.navigate('CoinsDetail', {coin});
     }
 
     return (
         <View style = {styles.container}>
-            <Pressable onPress = {() => {handlePress()}}>
-                <Text>Button</Text>
-            </Pressable>
-            {loading ? <ActivityIndicator color = '#000'  size = 'large' style = {styles.loader} /> : null}
+            
+            {loading && <ActivityIndicator color = '#000'  size = 'large' style = {styles.loader} />}
             <FlatList 
                 data = {coins} 
                 renderItem = {( { item } ) => <CoinsItem item = {item} onPress = {() => {handlePress(item)}}/>} 

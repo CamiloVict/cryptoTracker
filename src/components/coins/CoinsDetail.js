@@ -1,15 +1,46 @@
-import React from 'react'
-import {View, Text} from 'react-native'
+import React, {useEffect,useState} from 'react'
+import {View, Text, Image, StyleSheet,ActivityIndicator} from 'react-native'
 
-const CoinsDetail = (props) => {
+var ICON_ROUTE_PATH = 'https://c1.coinlore.com/img/25x25/'
+
+const CoinsDetail = ({route,navigation}) => {
     
-    console.log('coin', props.route.params)
+    const { coin: { symbol, name } } = route.params
+    
+    useEffect(() => {
+        navigation.setOptions({title : symbol})
+    }, [])
+
+
+    const getSymbolIcon = () => {
+        if(name){
+            const symbol = name.toLowerCase().replace(' ', '-');
+            return `${ICON_ROUTE_PATH}${symbol}.png`
+        }
+    }
+
     
     return (
+        
         <View>
-            <Text>Ejta funcionando</Text>
+            <View style = {styles.row}>
+            {/* {loading ? <ActivityIndicator color = '#000'  size = 'large' style = {styles.loader} /> : null} */}
+                <Image style = {styles.img} source = {{uri : getSymbolIcon()}}/>
+                <Text>{name}</Text>
+            </View>
         </View>
     )
 }
+
+
+const styles = StyleSheet.create({
+    img: {
+        width: 26,
+        height: 26,
+    },
+    row: {
+        flexDirection: 'row'
+    }
+})
 
 export default CoinsDetail

@@ -9,9 +9,8 @@ class Http {
             return data;
         }catch(err){
             console.log(`Error fetching data: ${err}`);
+            throw Error(err);
         }
-
-        throw Error(err);
     }
 
     post = async (url, body) => {
@@ -24,9 +23,9 @@ class Http {
             return data;
         }catch(err){
             console.log(`Error posting data: ${err}`)
+            throw Error(err)
         }
 
-        throw Error(err)
     }
 
     put = async (url, body) => {
@@ -39,9 +38,9 @@ class Http {
             return data;
         }catch(err){
             console.log(`Error posting data: ${err}`)
+            throw Error(err)
         }
 
-        throw Error(err)
     }
 
     delete = async (url, body) => {
@@ -54,9 +53,9 @@ class Http {
             return data;
         }catch(err){
             console.log(`Error posting data: ${err}`)
+            throw Error(err)
         }
 
-        throw Error(err)
     }
 }
 
