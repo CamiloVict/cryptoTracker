@@ -5,6 +5,7 @@ class Http {
         try{
             let req = await fetch(url)
             let data = req.json()
+            
             return data;
         }catch(err){
             console.log(`Error fetching data: ${err}`);
