@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react'
-import {View, Text, Pressable, FlatList,ActivityIndicator,StyleSheet} from 'react-native'
+import {View, FlatList,ActivityIndicator,StyleSheet} from 'react-native'
 
 import Http from '../../libs/http';
 import Colors from '../../res/Colors'

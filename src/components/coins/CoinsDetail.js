@@ -1,16 +1,21 @@
 import React, {useEffect,useState} from 'react'
-import {View, Text, Image, StyleSheet,SectionList} from 'react-native'
+import {View, Text, Image, StyleSheet,SectionList, FlatList} from 'react-native'
+import Http from '../../libs/http'
 
 import Colors from '../../res/Colors'
 
-var ICON_ROUTE_PATH = 'https://c1.coinlore.com/img/25x25/'
+var ICON_ROUTE_PATH = 'https://c1.coinlore.com/img/25x25/';
+var MARKET_ROUTE_PATH = 'https://api.coinlore.net/api/coin/markets/?id=${coinId}'
 
 const CoinsDetail = ({route,navigation}) => {
     
-    const { coin: { symbol, name, market_cap_usd, volume24, percent_change_24h } } = route.params
+    const { coin: { symbol, name, market_cap_usd, volume24, percent_change_24h,id } } = route.params
     
+    const [markets,setMarkets] = useState([])
+
     useEffect(() => {
         navigation.setOptions({title : symbol})
+        getMarkets(id)
     }, [])
 
 
@@ -39,11 +44,16 @@ const CoinsDetail = ({route,navigation}) => {
         return sections
     }
     
+    const getMarkets = async (coinId) => {
+        const url = `https://api.coinlore.net/api/coin/markets/?id=${coinId}`
+        const markets = await  Http.instance.get(url)
+        setMarkets(markets)
+    }
+
     return (
         
         <View style = {styles.container}>
             <View style = {styles.subHeader}>
-            {/* {loading ? <ActivityIndicator color = '#000'  size = 'large' style = {styles.loader} /> : null} */}
                 <Image style = {styles.img} source = {{uri : getSymbolIcon()}}/>
                 <Text style = { styles.titleText}>{name}</Text>
             </View>
@@ -59,6 +69,13 @@ const CoinsDetail = ({route,navigation}) => {
                             <Text style = {styles.sectionText}>{section.title}</Text> 
                         </View>}
                 />
+
+            <Text>Markets</Text>
+            <FlatList 
+                horizontal = {true}
+                data = {markets}
+                renderItem = {({item}) => <Text>{item.name}</Text>}
+            />
         </View>
     )
 }
