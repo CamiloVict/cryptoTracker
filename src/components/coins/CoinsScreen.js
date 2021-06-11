@@ -13,9 +13,14 @@ const CoinsScreen = (props) => {
     const [loading, setLoading] = useState(true);
 
     const getCoins = async () => {
-        const response = await Http.instance.get(API)
-        setCoins(response.data)
-        setLoading(false)
+        try{
+            const response = await Http.instance.get(API)
+            setCoins(response.data)
+            setLoading(false)
+        }catch(err){
+            console.log(err)
+            throw Error(err)
+        }
     }
     
     useEffect(() => {

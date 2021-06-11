@@ -46,10 +46,15 @@ const CoinsDetailScreen = ({route,navigation}) => {
     }
     
     const getMarkets = async (coinId) => {
-        const url = `https://api.coinlore.net/api/coin/markets/?id=${coinId}`
-        const markets = await  Http.instance.get(url)
-        setMarkets(markets)
-        setLoading(false)
+        try{
+            const url = `https://api.coinlore.net/api/coin/markets/?id=${coinId}`
+            const markets = await  Http.instance.get(url)
+            setMarkets(markets)
+            setLoading(false)
+        }catch(err){
+            console.log(err)
+            throw Error(err)
+        }
     }
 
 
