@@ -1,6 +1,5 @@
 import React, {useState,useEffect} from 'react'
 import {View, FlatList,ActivityIndicator,StyleSheet} from 'react-native'
-
 import Http from '../../libs/http';
 import Colors from '../../res/Colors'
 
@@ -24,7 +23,7 @@ const CoinsScreen = (props) => {
     },[])
         
     handlePress = (coin) => {
-        props.navigation.navigate('CoinsDetail', {coin});
+        props.navigation.navigate('CoinsDetailScreen', {coin});
     }
 
     return (

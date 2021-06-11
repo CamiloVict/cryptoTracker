@@ -3,9 +3,7 @@ import { createStackNavigator, HeaderStyleInterpolators } from '@react-navigatio
 
 
 import CoinsScreen from './CoinsScreen'
-import CoinsDetail from './CoinsDetail'
-
-
+import CoinsDetailScreen from '../coinDetail/CoinsDetailScreen';
 import Colors from '../../res/Colors'
 
 const Stack = createStackNavigator();
@@ -23,7 +21,7 @@ const CoinsStack = () => {
             }
         }>
             <Stack.Screen name = 'Coins' component = {CoinsScreen} />
-            <Stack.Screen name = 'CoinsDetail' component = {CoinsDetail} />
+            <Stack.Screen name = 'CoinsDetailScreen' component = {CoinsDetailScreen} />
         </Stack.Navigator>
     )
 }

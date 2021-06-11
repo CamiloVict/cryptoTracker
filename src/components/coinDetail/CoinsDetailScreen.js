@@ -1,13 +1,12 @@
 import React, {useEffect,useState} from 'react'
 import {View, Text, Image, StyleSheet,SectionList, FlatList} from 'react-native'
 import Http from '../../libs/http'
-
 import Colors from '../../res/Colors'
+import CoinMarketItem from './CoinMarketItem';
 
 var ICON_ROUTE_PATH = 'https://c1.coinlore.com/img/25x25/';
-var MARKET_ROUTE_PATH = 'https://api.coinlore.net/api/coin/markets/?id=${coinId}'
 
-const CoinsDetail = ({route,navigation}) => {
+const CoinsDetailScreen = ({route,navigation}) => {
     
     const { coin: { symbol, name, market_cap_usd, volume24, percent_change_24h,id } } = route.params
     
@@ -57,7 +56,7 @@ const CoinsDetail = ({route,navigation}) => {
                 <Image style = {styles.img} source = {{uri : getSymbolIcon()}}/>
                 <Text style = { styles.titleText}>{name}</Text>
             </View>
-                <SectionList 
+                <SectionList style = {styles.sectionList}
                     sections = { getSection() }
                     keyExtractor = { (item) => item.id}
                     renderItem = {({item}) => 
@@ -70,11 +69,11 @@ const CoinsDetail = ({route,navigation}) => {
                         </View>}
                 />
 
-            <Text>Markets</Text>
+            <Text style = {styles.subTitle}>Markets</Text>
             <FlatList 
                 horizontal = {true}
                 data = {markets}
-                renderItem = {({item}) => <Text>{item.name}</Text>}
+                renderItem = {({item}) => <CoinMarketItem item = {item}/>}
             />
         </View>
     )
@@ -99,6 +98,9 @@ const styles = StyleSheet.create({
     sectionItem:{
         padding:8
     },
+    sectionList:{
+        maxHeight: 220,
+    },
     img: {
         width: 26,
         height: 26,
@@ -119,7 +121,15 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize:14,
         fontWeight: 'bold',
+    },
+    subTitle: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 16,
+        marginRight: 10,
+        marginBottom: 2,
+        marginLeft: 8,
     }
 })
 
-export default CoinsDetail
+export default CoinsDetailScreen
