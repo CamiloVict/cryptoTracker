@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from 'react'
-import {View, Text, Image, StyleSheet,SectionList, FlatList} from 'react-native'
+import {View, Text, Image, StyleSheet,SectionList, FlatList, ActivityIndicator} from 'react-native'
 import Http from '../../libs/http'
 import Colors from '../../res/Colors'
 import CoinMarketItem from './CoinMarketItem';
@@ -11,12 +11,12 @@ const CoinsDetailScreen = ({route,navigation}) => {
     const { coin: { symbol, name, market_cap_usd, volume24, percent_change_24h,id } } = route.params
     
     const [markets,setMarkets] = useState([])
-
+    const [loading, setLoading] = useState(true)
+    
     useEffect(() => {
         navigation.setOptions({title : symbol})
         getMarkets(id)
     }, [])
-
 
     const getSymbolIcon = () => {
         if(name){
@@ -26,6 +26,7 @@ const CoinsDetailScreen = ({route,navigation}) => {
     }
 
     const getSection = () => {
+        
         const sections = [
             {
                 title : 'Market Cap',
@@ -40,6 +41,7 @@ const CoinsDetailScreen = ({route,navigation}) => {
                 data : [percent_change_24h]
             }
         ]
+        
         return sections
     }
     
@@ -47,7 +49,9 @@ const CoinsDetailScreen = ({route,navigation}) => {
         const url = `https://api.coinlore.net/api/coin/markets/?id=${coinId}`
         const markets = await  Http.instance.get(url)
         setMarkets(markets)
+        setLoading(false)
     }
+
 
     return (
         
@@ -70,6 +74,7 @@ const CoinsDetailScreen = ({route,navigation}) => {
                 />
 
             <Text style = {styles.subTitle}>Markets</Text>
+            {loading && <ActivityIndicator color = '#000'  size = 'large' style = {styles.loader}/>}
             <FlatList 
                 horizontal = {true}
                 data = {markets}
@@ -129,6 +134,10 @@ const styles = StyleSheet.create({
         marginRight: 10,
         marginBottom: 2,
         marginLeft: 8,
+    },
+    loader: {
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })
 
