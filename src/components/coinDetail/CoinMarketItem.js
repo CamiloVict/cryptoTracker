@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
         marginRight:8,
         alignItems: 'center',
         borderRadius: 10,
-        margin: 8,
+        marginLeft: 2,
         maxHeight: 70,
-
+        justifyContent: 'space-between'
     },
     nameText:{
         color: '#fff',
